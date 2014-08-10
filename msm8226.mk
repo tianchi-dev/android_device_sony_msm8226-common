@@ -65,12 +65,16 @@ PRODUCT_COPY_FILES += \
 
 # Audio
 PRODUCT_PACKAGES += \
-    audio_policy.msm8226 \
-    audio.a2dp.default \
-    audio.usb.default \
-    audio.r_submix.default \
-    libaudio-resampler \
-    tinymix
+audio_policy.msm8226 \
+libaudio-resampler \
+libaudioparameter \
+libqcomvisualizer \
+libqcompostprocbundle \
+libqcomvoiceprocessing \
+tinycap \
+tinymix \
+tinypcminfo \
+tinyplay
 
 # Display
 PRODUCT_PACKAGES += \
@@ -79,9 +83,16 @@ PRODUCT_PACKAGES += \
     copybit.msm8226 \
     memtrack.msm8226
 
-# Filesystem management tools
+# Ebtables
 PRODUCT_PACKAGES += \
-    e2fsck
+ebtables \
+ethertypes \
+libebtc
+
+# HAL
+PRODUCT_PACKAGES += \
+lights.MSM8226 \
+power.msm8226
 
 # FM Radio
 PRODUCT_COPY_FILES += \
