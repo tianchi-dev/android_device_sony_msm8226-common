@@ -65,16 +65,16 @@ PRODUCT_COPY_FILES += \
 
 # Audio
 PRODUCT_PACKAGES += \
-audio_policy.msm8226 \
-libaudio-resampler \
-libaudioparameter \
-libqcomvisualizer \
-libqcompostprocbundle \
-libqcomvoiceprocessing \
-tinycap \
-tinymix \
-tinypcminfo \
-tinyplay
+	audio_policy.msm8226 \
+	libaudio-resampler \
+	libaudioparameter \
+	libqcomvisualizer \
+	libqcompostprocbundle \
+	libqcomvoiceprocessing \
+	tinycap \
+	tinymix \
+	tinypcminfo \
+	tinyplay
 
 # Display
 PRODUCT_PACKAGES += \
@@ -85,14 +85,18 @@ PRODUCT_PACKAGES += \
 
 # Ebtables
 PRODUCT_PACKAGES += \
-ebtables \
-ethertypes \
-libebtc
+	ebtables \
+	ethertypes \
+	libebtc
+
+# Filesystem management tools
+PRODUCT_PACKAGES += \
+	e2fsck
 
 # HAL
 PRODUCT_PACKAGES += \
-lights.MSM8226 \
-power.msm8226
+	lights.MSM8226 \
+	power.msm8226
 
 # FM Radio
 PRODUCT_COPY_FILES += \
