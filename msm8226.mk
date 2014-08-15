@@ -65,12 +65,38 @@ PRODUCT_COPY_FILES += \
 
 # Audio
 PRODUCT_PACKAGES += \
-    audio_policy.msm8226 \
-    audio.a2dp.default \
-    audio.usb.default \
-    audio.r_submix.default \
-    libaudio-resampler \
-    tinymix
+	audiod \
+	audio.a2dp.default \
+	audio.primary.msm8226 \
+	audio.r_submix.default \
+	audio.usb.default \
+	audio_policy.msm8226
+
+PRODUCT_PACKAGES += \
+	libaudio-resampler \
+	libqcompostprocbundle \
+	libqcomvisualizer \
+	libqcomvoiceprocessing \
+	tinymix
+
+# OMX
+PRODUCT_PACKAGES += \
+	libc2dcolorconvert \
+	libdashplayer \
+	libdivxdrmdecrypt \
+	libOmxAacEnc \
+	libOmxAmrEnc \
+	libOmxCore \
+	libOmxEvrcEnc \
+	libOmxQcelp13Enc \
+	libOmxVdec \
+	libOmxVdecHevc \
+	libOmxVenc \
+	libstagefrighthw \
+	qcmediaplayer
+
+PRODUCT_BOOT_JARS += \
+	qcmediaplayer
 
 # Display
 PRODUCT_PACKAGES += \
