@@ -39,13 +39,72 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/com.android.nfc_extras.xml:system/etc/permissions/com.google.android.nfc_extras.xml \
     frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml
 
-# Init
+# Ramdisk
 PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/rootdir/fstab.qcom:root/fstab.qcom \
+    $(LOCAL_PATH)/rootdir/init.qcom.early_boot.sh:root/init.qcom.early_boot.sh \
+    $(COMMON_PATH)/rootdir/init.qcom.sh:root/init.qcom.sh \
     $(COMMON_PATH)/rootdir/init.qcom.rc:root/init.qcom.rc \
+    $(COMMON_PATH)/rootdir/init.sony.rc:root/init.sony.rc \
+    $(COMMON_PATH)/rootdir/init.target.rc:root/init.target.rc \
+    $(COMMON_PATH)/rootdir/init.sony-device.rc:root/init.sony-device.rc \
+    $(COMMON_PATH)/rootdir/init.sony-platform.rc:root/init.sony-platform.rc \
+    $(COMMON_PATH)/rootdir/init.qcom.syspart_fixup.sh:root/init.qcom.syspart_fixup.sh \
+    $(COMMON_PATH)/rootdir/init.qcom.ssr.sh:root/init.qcom.ssr.sh \
+    $(COMMON_PATH)/rootdir/fstab.qcom:root/fstab.qcom \
+    $(COMMON_PATH)/rootdir/fstab.qcom:recovery/root/fstab.qcom \
     $(COMMON_PATH)/rootdir/init.recovery.qcom.rc:root/init.recovery.qcom.rc \
-    $(COMMON_PATH)/rootdir/system/etc/init.qcom.bt.sh:system/etc/init.qcom.bt.sh \
+    $(COMMON_PATH)/rootdir/system/etc/init.sony.bt.sh:system/etc/init.sony.bt.sh \
     $(COMMON_PATH)/rootdir/ueventd.qcom.rc:root/ueventd.qcom.rc
+
+# Additional sbin stuff
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/rootdir/sbin/wait4tad_static:root/sbin/wait4tad_static \
+    $(LOCAL_PATH)/rootdir/sbin/tad_static:root/sbin/tad_static
+
+# Keys
+PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/rootdir/system/usr/keylayout/msm8226-tapan-snd-card_Button_Jack.kl:system/usr/keylayout/msm8226-tapan-snd-card_Button_Jack.kl \
+    $(COMMON_PATH)/rootdir/system/usr/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl
+
+# FM Radio
+PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/rootdir/system/etc/init.qcom.fm.sh:system/etc/init.qcom.fm.sh
+
+# Audio
+PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/rootdir/system/etc/audio_policy.conf:system/etc/audio_policy.conf
+
+# Media
+PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/rootdir/system/etc/media_profiles.xml:system/etc/media_profiles.xml
+
+# GPS
+PRODUCT_COPY_FILES += \
+   $(COMMON_PATH)/rootdir/system/etc/gps.conf:system/etc/gps.conf
+
+# WPA supplicant config
+PRODUCT_COPY_FILES += \
+   $(COMMON_PATH)/rootdir/system/etc/wifi/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf \
+   $(COMMON_PATH)/rootdir/system/etc/wifi/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf
+
+# Prima wifi config
+PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/rootdir/system/etc/init.qcom.wifi.sh:system/etc/init.qcom.wifi.sh \
+    $(COMMON_PATH)/rootdir/system/etc/firmware/wlan/prima/WCNSS_cfg.dat:system/etc/firmware/wlan/prima/WCNSS_cfg.dat \
+    $(COMMON_PATH)/rootdir/system/etc/firmware/wlan/prima/WCNSS_qcom_cfg.ini:system/etc/firmware/wlan/prima/WCNSS_qcom_cfg.ini \
+    $(COMMON_PATH)/rootdir/system/etc/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin:system/etc/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin
+
+# Sensors
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/rootdir/system/etc/sap.conf:system/etc/sap.conf
+
+# SEC Config
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/rootdir/system/etc/sec_config:system/etc/sec_config
+
+# Thermal monitor configuration
+PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/rootdir/system/etc/thermal-engine-8226.conf:system/etc/thermal-engine-8226.conf
 
 # Recovery
 PRODUCT_PACKAGES += \
@@ -56,12 +115,6 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/recovery/D5x22.sh:D5x22.sh
-
-# Sbin
-PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/rootdir/charger:root/charger \
-    $(COMMON_PATH)/rootdir/sbin/wait4tad_static:root/sbin/wait4tad_static \
-    $(COMMON_PATH)/rootdir/sbin/tad_static:root/sbin/tad_static
 
 # Audio
 PRODUCT_PACKAGES += \
@@ -109,10 +162,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     e2fsck
 
-# FM Radio
-PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/rootdir/system/etc/init.qcom.fm.sh:system/etc/init.qcom.fm.sh
-
 # GPS
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/gps/flp.conf:system/etc/flp.conf \
@@ -137,12 +186,7 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/com.android.nfc_extras.xml:system/etc/permissions/com.android.nfc_extras.xml
 
 # NFCEE access control
-ifeq ($(TARGET_BUILD_VARIANT),user)
     NFCEE_ACCESS_PATH := $(COMMON_PATH)/rootdir/system/etc/nfcee_access.xml
-else
-    NFCEE_ACCESS_PATH := $(COMMON_PATH)/rootdir/system/etc/nfcee_access_debug.xml
-endif
-
 PRODUCT_COPY_FILES += \
     $(NFCEE_ACCESS_PATH):system/etc/nfcee_access.xml
 
@@ -159,16 +203,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     mac-update \
     wcnss_service
-
-PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/rootdir/system/etc/wifi/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf \
-    $(COMMON_PATH)/rootdir/system/etc/wifi/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf
-
-PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/rootdir/system/etc/init.qcom.wifi.sh:system/etc/init.qcom.wifi.sh \
-    $(COMMON_PATH)/rootdir/system/etc/firmware/wlan/prima/WCNSS_cfg.dat:system/etc/firmware/wlan/prima/WCNSS_cfg.dat \
-    $(COMMON_PATH)/rootdir/system/etc/firmware/wlan/prima/WCNSS_qcom_cfg.ini:system/etc/firmware/wlan/prima/WCNSS_qcom_cfg.ini \
-    $(COMMON_PATH)/rootdir/system/etc/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin:system/etc/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin
 
 # OpenGL ES 3.0
 PRODUCT_PROPERTY_OVERRIDES += \

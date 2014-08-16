@@ -1,5 +1,6 @@
 #!/system/bin/sh
 # Copyright (c) 2010-2013, The Linux Foundation. All rights reserved.
+# Copyright (c) 2013 Sony Mobile Communications AB.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are
@@ -256,6 +257,17 @@ case "$target" in
       ;;
       esac
       ;;
+
+    apq8084*)
+      echo "*** Use the CNSS CLD driver.**"
+      setprop wlan.driver.ath 0
+
+      # Use different wpa_supplicant.conf template between wcn driver
+      # and ath6kl driver
+      rm /system/etc/wifi/wpa_supplicant.conf
+      ln -s /system/etc/wifi/wpa_supplicant_wcn.conf \
+                /system/etc/wifi/wpa_supplicant.conf
+    ;;
 
     msm8960*)
 
