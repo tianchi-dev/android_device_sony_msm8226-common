@@ -85,11 +85,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
    $(COMMON_PATH)/rootdir/system/etc/gps.conf:system/etc/gps.conf
 
-# WPA supplicant config
-PRODUCT_COPY_FILES += \
-   $(COMMON_PATH)/rootdir/system/etc/wifi/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf \
-   $(COMMON_PATH)/rootdir/system/etc/wifi/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf
-
 # Prima wifi config
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/rootdir/system/etc/init.qcom.wifi.sh:system/etc/init.qcom.wifi.sh \
@@ -202,11 +197,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     com.android.future.usb.accessory
 
-# WiFi
-PRODUCT_PACKAGES += \
-    mac-update \
-    wcnss_service
-
 # OpenGL ES 3.0
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.opengles.version=19660
@@ -313,3 +303,22 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Include non-opensource parts
 $(call inherit-product-if-exists, vendor/sony/msm8226-common/msm8226-common-vendor.mk)
+
+# Wifi
+PRODUCT_PACKAGES += \
+    hostapd.accept \
+    hostapd.deny \
+    hostapd_default.conf
+
+PRODUCT_PACKAGES += \
+    p2p_supplicant_overlay.conf \
+    wpa_supplicant_overlay.conf
+
+PRODUCT_PACKAGES += \
+    WCNSS_qcom_wlan_factory_nv.bin
+
+PRODUCT_PACKAGES += \
+    libcurl \
+    libqsap_sdk \
+    libQWiFiSoftApCfg \
+    wcnss_service
